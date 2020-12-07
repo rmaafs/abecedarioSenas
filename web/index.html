@@ -36,6 +36,11 @@ and open the template in the editor.
                 <div class="col-md-12 mt-5">
                     <h1 style="color:green;" id="mejorTiempo"></h1>
                 </div>
+
+                <div class="col-md-12 mt-10">
+                    <button type="button" class="btn btn-secondary" onclick="window.location.href = 'palabras.html';">Ejercicio de palabras</button>
+                </div>
+
             </div>
         </div>
         <script>
@@ -121,18 +126,6 @@ and open the template in the editor.
                         break;
                     }
                     i++;
-
-                    //Para evitar que cicle muchas veces, mejor barremos manualmente el ciclo y buscamos la que falta.
-                    if (i > maxSize) {
-                        for (var j = 0; j < abecedario.length; j++) {
-                            if (!letrasCorrectas.includes(abecedario[j])) {
-                                letra = abecedario[j];
-                                console.log("Traje a " + letra);
-                                break;
-                            }
-                        }
-                        break;
-                    }
                 }
 
                 $("#foto").attr("src", "img/anonimas/" + letra + ".png");
@@ -163,7 +156,7 @@ and open the template in the editor.
             }
 
             function getLetra() {
-                var min = 0, max = maxSize;
+                var min = 0, max = maxSize + 1;
                 var index = Math.floor(Math.random() * (max - min)) + min;
                 return abecedario[index];
             }
