@@ -1,3 +1,7 @@
-<?php
-        header("Location: /abecedarioSenas/web/");
-?>
+<html>
+        <body>
+                <script>
+                        window.location.href = "/abecedarioSenas/web/";
+                </script>
+        </body>
+</html>
