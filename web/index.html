@@ -94,7 +94,9 @@
                 tiempoInicio = Date.now();
             }
 
-            if (letraIngresada == 'à') {
+            console.log(letraIngresada);
+
+            if (letraIngresada == 'à' || (letra == "ñ" && letraIngresada == 'n')) {
                 letraIngresada = 'ñ';
             }
             if (letraIngresada == '') return;
