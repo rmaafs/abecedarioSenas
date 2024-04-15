@@ -166,7 +166,12 @@
         }
 
         function getTimeFormated(segundos) {
-            return new Date(segundos * 1000).toISOString().substr(11, 8);
+            return new Date(segundos * 1000).toLocaleString('en-US', {
+                minute: '2-digit',
+                second: '2-digit',
+                fractionalSecondDigits: 3,
+                hour12: false
+            });
         }
     </script>
 </body>
