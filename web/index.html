@@ -82,7 +82,7 @@
         var letra = '';
         var letrasCorrectas = "";
         var tiempoInicio = Date.now();
-        var mejorTiempo = localStorage.getItem("tiempo") != null ? localStorage.getItem("tiempo") : 0;
+        var mejorTiempo = localStorage.getItem("tiempo") != null ? Number(localStorage.getItem("tiempo")) : 0;
         $("#mejorTiempo").html("Mejor tiempo: " + getTimeFormated(mejorTiempo));
 
         $("#inputLetra").keyup(function (event) {
@@ -94,7 +94,7 @@
                 tiempoInicio = Date.now();
             }
 
-            console.log(letraIngresada);
+            console.log("Letra ingresada:", letraIngresada);
 
             if (letraIngresada == 'à' || (letra == "ñ" && letraIngresada == 'n')) {
                 letraIngresada = 'ñ';
@@ -144,6 +144,10 @@
         function ganaste() {
             var secs = Math.abs(((tiempoInicio - Date.now()) / 1000));
             $("#titleStep").html("¡GANASTE!<br>Tiempo: " + getTimeFormated(secs));
+
+            if (mejorTiempo === 0) {
+                mejorTiempo = 999999;
+            }
 
             if (secs < mejorTiempo) {
                 mejorTiempo = secs;
