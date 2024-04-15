@@ -1,169 +1,179 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <html>
-    <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-        <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
-    </head>
-    <body>
-        <div class="content">
-            <div class="row text-center">
-                <div class="col-md-12">
-                    <h1 id="titleStep"></h1>
+
+<head>
+    <title>TODO supply a title</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.js"
+        integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+        crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="content">
+        <div class="row text-center">
+            <div class="col-md-12">
+                <h1 id="titleStep"></h1>
+            </div>
+            <div class="col-md-12">
+                <div class="imagen">
+                    <img src="img/anonimas/a.png" class="rounded mx-auto d-block" id="foto">
                 </div>
-                <div class="col-md-12">
-                    <div class="imagen">
-                        <img src="img/anonimas/a.png" class="rounded mx-auto d-block" id="foto">
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <input type="text" class="form-group" id="inputLetra">
-                </div>
-<!--                <div class="col-md-12">
+            </div>
+            <div class="col-md-12">
+                <input type="text" class="form-group" id="inputLetra">
+            </div>
+            <!--                <div class="col-md-12">
                     <button type="button" class="btn btn-secondary" onclick="clickSiguiente();" id="btnSiguiente">Siguiente</button>
                 </div>-->
-                <div class="col-md-12" id="msgError" style="display: none;">
-                    <h1 style="color:red;">ERROR</h1>
-                </div>
-                <div class="col-md-12 mt-5">
-                    <h1 style="color:green;" id="mejorTiempo"></h1>
-                </div>
-
-                <div class="col-md-12 mt-10">
-                    <button type="button" class="btn btn-secondary" onclick="window.location.href = 'palabras.html';">Ejercicio de palabras</button>
-                </div>
-
+            <div class="col-md-12" id="msgError" style="display: none;">
+                <h1 style="color:red;">ERROR</h1>
             </div>
+            <div class="col-md-12 mt-5">
+                <h1 style="color:green;" id="mejorTiempo"></h1>
+            </div>
+
+            <div class="col-md-12 mt-10">
+                <button type="button" class="btn btn-secondary"
+                    onclick="window.location.href = 'palabras.html';">Ejercicio de palabras</button>
+            </div>
+
         </div>
-        <script>
-            var abecedario = [
-                "a",
-                "b",
-                "c",
-                "d",
-                "e",
-                "f",
-                "g",
-                "h",
-                "i",
-                "j",
-                "k",
-                "l",
-                "m",
-                "n",
-                "ñ",
-                "o",
-                "p",
-                "q",
-                "r",
-                "rr",
-                "s",
-                "t",
-                "u",
-                "v",
-                "w",
-                "x",
-                "y",
-                "z"
-            ];
+    </div>
+    <script>
+        var abecedario = [
+            "a",
+            "b",
+            "c",
+            "d",
+            "e",
+            "f",
+            "g",
+            "h",
+            "i",
+            "j",
+            "k",
+            "l",
+            "m",
+            "n",
+            "ñ",
+            "o",
+            "p",
+            "q",
+            "r",
+            "rr",
+            "s",
+            "t",
+            "u",
+            "v",
+            "w",
+            "x",
+            "y",
+            "z"
+        ];
 
-            var maxSize = abecedario.length - 1;
-            var step = 0;
-            var letra = '';
-            var letrasCorrectas = "";
-            var tiempoInicio = Date.now();
-            var mejorTiempo = localStorage.getItem("tiempo") != null ? localStorage.getItem("tiempo") : 0;
-            $("#mejorTiempo").html("Mejor tiempo: " + getTimeFormated(mejorTiempo));
+        var maxSize = abecedario.length - 1;
+        var step = 0;
+        var letra = '';
+        var letrasCorrectas = "";
+        var tiempoInicio = Date.now();
+        var mejorTiempo = localStorage.getItem("tiempo") != null ? Number(localStorage.getItem("tiempo")) : 0;
+        $("#mejorTiempo").html("Mejor tiempo: " + getTimeFormated(mejorTiempo));
 
-            $("#inputLetra").keyup(function (event) {
-                clickSiguiente(String.fromCharCode(event.keyCode).toLowerCase());
-//                if (event.keyCode === 13) {//Enter
-//                    $("#btnSiguiente").click();
-//                }
-            });
+        $("#inputLetra").keyup(function (event) {
+            clickSiguiente(String.fromCharCode(event.keyCode).toLowerCase());
+        });
 
-            function clickSiguiente(letraIngresada) {
-                if (letrasCorrectas.length == 0) {
-                    tiempoInicio = Date.now();
-                }
-                
-//                var letraIngresada = $("#inputLetra").val();
-                if (letraIngresada == 'à') {
-                    letraIngresada = 'ñ';
-                }
-                if (letraIngresada == '') return;
-                if (letraIngresada == letra || (letra == 'rr' && letraIngresada == 'r')) {
-                    step++;
-                    letrasCorrectas += letra;
+        function clickSiguiente(letraIngresada) {
+            if (letrasCorrectas.length == 0) {
+                tiempoInicio = Date.now();
+            }
 
-                    if (maxSize == step) {
-                        ganaste();
-                    } else {
-                        next();
-                    }
+            console.log("Letra ingresada:", letraIngresada);
+
+            if (letraIngresada == 'à' || (letra == "ñ" && letraIngresada == 'n')) {
+                letraIngresada = 'ñ';
+            }
+            if (letraIngresada == '') return;
+            if (letraIngresada == letra || (letra == 'rr' && letraIngresada == 'r')) {
+                step++;
+                letrasCorrectas += letra;
+
+                if (maxSize == step) {
+                    ganaste();
                 } else {
-                    $("#foto").attr("src", "img/completas/" + letra + ".png");
-                    $("#msgError").show();
-                    setTimeout(function () {
-                        reiniciar();
-                    }, 3000);
+                    next();
                 }
-            }
-
-            function next() {
-                var i = 0;
-                while (true) {
-                    letra = getLetra();
-                    if (!letrasCorrectas.includes(letra)) {
-                        break;
-                    }
-                    i++;
-                }
-
-                $("#foto").attr("src", "img/anonimas/" + letra + ".png");
-                $("#titleStep").html((step + 1) + "/" + maxSize);
-                $("#inputLetra").val("");
-            }
-            next();
-
-            function reiniciar() {
-                step = 0;
-                letrasCorrectas = "";
-                next();
-                $("#msgError").hide();
-            }
-
-            function ganaste() {
-                var secs = Math.abs(((tiempoInicio - Date.now()) / 1000));
-                $("#titleStep").html("¡GANASTE!<br>Tiempo: " + getTimeFormated(secs));
-
-                if (secs < mejorTiempo) {
-                    mejorTiempo = secs;
-                }
-                $("#mejorTiempo").html("Mejor tiempo: " + getTimeFormated(mejorTiempo));
-                localStorage.setItem("tiempo", mejorTiempo);
+            } else {
+                $("#foto").attr("src", "img/completas/" + letra + ".png");
+                $("#msgError").show();
                 setTimeout(function () {
                     reiniciar();
                 }, 3000);
             }
+        }
 
-            function getLetra() {
-                var min = 0, max = maxSize + 1;
-                var index = Math.floor(Math.random() * (max - min)) + min;
-                return abecedario[index];
+        function next() {
+            var i = 0;
+            while (true) {
+                letra = getLetra();
+                if (!letrasCorrectas.includes(letra)) {
+                    break;
+                }
+                i++;
             }
 
-            function getTimeFormated(segundos) {
-                return new Date(segundos * 1000).toISOString().substr(11, 8);
+            $("#foto").attr("src", "img/anonimas/" + letra + ".png");
+            $("#titleStep").html((step + 1) + "/" + maxSize);
+            $("#inputLetra").val("");
+        }
+        next();
+
+        function reiniciar() {
+            step = 0;
+            letrasCorrectas = "";
+            next();
+            $("#msgError").hide();
+        }
+
+        function ganaste() {
+            var secs = Math.abs(((tiempoInicio - Date.now()) / 1000));
+            $("#titleStep").html("¡GANASTE!<br>Tiempo: " + getTimeFormated(secs));
+
+            if (mejorTiempo === 0) {
+                mejorTiempo = 999999;
             }
-        </script>
-    </body>
+
+            if (secs < mejorTiempo) {
+                mejorTiempo = secs;
+            }
+            $("#mejorTiempo").html("Mejor tiempo: " + getTimeFormated(mejorTiempo));
+            localStorage.setItem("tiempo", mejorTiempo);
+            setTimeout(function () {
+                reiniciar();
+            }, 3000);
+        }
+
+        function getLetra() {
+            var min = 0, max = maxSize + 1;
+            var index = Math.floor(Math.random() * (max - min)) + min;
+            return abecedario[index];
+        }
+
+        function getTimeFormated(segundos) {
+            return new Date(segundos * 1000).toLocaleString('en-US', {
+                minute: '2-digit',
+                second: '2-digit',
+                fractionalSecondDigits: 3,
+                hour12: false
+            });
+        }
+    </script>
+</body>
+
 </html>

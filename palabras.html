@@ -1,198 +1,199 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <html>
-    <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-        <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
-    </head>
-    <body>
-        <div class="content">
-            <div class="row text-center">
-                <div class="col-md-12">
-                    <h1 id="titleStep"></h1>
-                </div>
-                <div class="col-md-12">
-                    <div class="imagen">
-                        <img src="img/pregunta.png" class="rounded mx-auto d-block" id="foto">
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <input type="text" class="form-group" id="inputPalabra" style="display: none;">
-                </div>
-                <div class="col-md-12">
-                    <button type="button" class="btn btn-secondary" onclick="clickSiguiente();" id="btnSiguiente" style="display: none;">Siguiente</button>
-                </div>
-                <div class="col-md-12">
-                    <button type="button" class="btn btn-secondary" onclick="clickEnviar();" id="btnEnviar" style="display: none;">Enviar</button>
-                    <button type="button" class="btn btn-secondary" onclick="clickRepetir();" id="btnRepetir" style="display: none;">Repetir</button>
-                </div>
-                <div class="col-md-12">
-                    <h1 style="color:red;" id="msgError" style="display: none;"></h1>
-                </div>
-                <div class="col-md-12 mt-5" id="divCorrecto" style="display: none;">
-                    <h1 style="color:green;">¡CORRECTO!</h1>
-                </div>
-                <div class="col-md-12 mt-5">
-                    <h1 style="color:green;" id="mejorPuntaje"></h1>
-                </div>
 
+<head>
+    <title>TODO supply a title</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.js"
+        integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+        crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="content">
+        <div class="row text-center">
+            <div class="col-md-12">
+                <h1 id="titleStep"></h1>
             </div>
+            <div class="col-md-12">
+                <div class="imagen">
+                    <img src="img/pregunta.png" class="rounded mx-auto d-block" id="foto">
+                </div>
+            </div>
+            <div class="col-md-12">
+                <input type="text" class="form-group" id="inputPalabra" style="display: none;">
+            </div>
+            <div class="col-md-12">
+                <button type="button" class="btn btn-secondary" onclick="clickSiguiente();" id="btnSiguiente"
+                    style="display: none;">Siguiente</button>
+            </div>
+            <div class="col-md-12">
+                <button type="button" class="btn btn-secondary" onclick="clickEnviar();" id="btnEnviar"
+                    style="display: none;">Enviar</button>
+                <button type="button" class="btn btn-secondary" onclick="clickRepetir();" id="btnRepetir"
+                    style="display: none;">Repetir</button>
+            </div>
+            <div class="col-md-12">
+                <h1 style="color:red;" id="msgError" style="display: none;"></h1>
+            </div>
+            <div class="col-md-12 mt-5" id="divCorrecto" style="display: none;">
+                <h1 style="color:green;">¡CORRECTO!</h1>
+            </div>
+            <div class="col-md-12 mt-5">
+                <h1 style="color:green;" id="mejorPuntaje"></h1>
+            </div>
+
         </div>
-        <script>
-            var palabras = [{}];
+    </div>
+    <script>
+        var palabras = [{}];
 
-            var palabra = "";
-            var maxSize = palabras.length - 1;
-            var step = 0;
-            var mejorPuntaje = localStorage.getItem("puntaje") != null ? localStorage.getItem("puntaje") : 0;
-            var minSizePalabra = 5;
-            $("#mejorPuntaje").html("Mejor puntaje: " + mejorPuntaje);
+        var palabra = "";
+        var maxSize = palabras.length - 1;
+        var step = 0;
+        var mejorPuntaje = localStorage.getItem("puntaje") != null ? localStorage.getItem("puntaje") : 0;
+        var minSizePalabra = 5;
+        $("#mejorPuntaje").html("Mejor puntaje: " + mejorPuntaje);
 
-            $("#inputPalabra").keyup(function (event) {
-                if (event.keyCode === 13) {//Enter
-                    $("#btnEnviar").click();
-                }
-            });
-
-            function init() {
-                if (localStorage.getItem("palabras") != null) {
-                    setPalabras(JSON.parse(localStorage.getItem("palabras")));
-                } else {
-                    $.get("https://raw.githubusercontent.com/javierarce/palabras/master/listado-general.txt", function (data) {
-                        setPalabras(removeAccents(data).split("\n"));
-                    });
-                }
-                
-//                $.get("https://raw.githubusercontent.com/javierarce/palabras/master/listado-general.txt", function (data) {
-//                        setPalabras(removeAccents(data).split("\n"));
-//                    });
+        $("#inputPalabra").keyup(function (event) {
+            if (event.keyCode === 13) {//Enter
+                $("#btnEnviar").click();
             }
-            init();
+        });
 
-            function setPalabras(listaPalabras) {
-                palabras = listaPalabras;
-                maxSize = palabras.length - 1;
-                localStorage.setItem("palabras", JSON.stringify(palabras));
-                $("#btnSiguiente").show();
-                console.log("Total: " + palabras.length);
+        function init() {
+            if (localStorage.getItem("palabras") != null) {
+                setPalabras(JSON.parse(localStorage.getItem("palabras")));
+            } else {
+                $.get("https://raw.githubusercontent.com/javierarce/palabras/master/listado-general.txt", function (data) {
+                    setPalabras(removeAccents(data).split("\n"));
+                });
             }
+        }
+        init();
 
-            function clickSiguiente() {
-                while (true) {
-                    palabra = getPalabra();
-                    if (palabra.length <= minSizePalabra) {
-                        break;
-                    }
+        function setPalabras(listaPalabras) {
+            palabras = listaPalabras;
+            maxSize = palabras.length - 1;
+            localStorage.setItem("palabras", JSON.stringify(palabras));
+            $("#btnSiguiente").show();
+            console.log("Total: " + palabras.length);
+        }
+
+        function clickSiguiente() {
+            while (true) {
+                palabra = getPalabra();
+                if (palabra.length <= minSizePalabra) {
+                    break;
                 }
-                
-                showLetra(palabra[0], 1);
-                $("#inputPalabra").val("");
-                $("#btnSiguiente").hide();
-                $("#inputPalabra").hide();
-                $("#btnEnviar").hide();
-                $("#btnRepetir").hide();
-                $("#titleStep").html("Puntos: " + step);
             }
 
-            function clickRepetir() {
-                palabra = palabra.replace(/rr/g, ".").replace(/ll/g, ",")
-                showLetra(palabra[0], 1);
-                $("#inputPalabra").val("");
-                $("#btnSiguiente").hide();
-                $("#inputPalabra").hide();
-                $("#btnEnviar").hide();
-                $("#btnRepetir").hide();
+            showLetra(palabra[0], 1);
+            $("#inputPalabra").val("");
+            $("#btnSiguiente").hide();
+            $("#inputPalabra").hide();
+            $("#btnEnviar").hide();
+            $("#btnRepetir").hide();
+            $("#titleStep").html("Puntos: " + step);
+        }
+
+        function clickRepetir() {
+            palabra = palabra.replace(/rr/g, ".").replace(/ll/g, ",")
+            showLetra(palabra[0], 1);
+            $("#inputPalabra").val("");
+            $("#btnSiguiente").hide();
+            $("#inputPalabra").hide();
+            $("#btnEnviar").hide();
+            $("#btnRepetir").hide();
+        }
+
+        function showLetra(letra, index) {
+            if (index == palabra.length + 1) {
+                $("#btnEnviar").show();
+                $("#btnRepetir").show();
+                $("#inputPalabra").show();
+                $("#inputPalabra").focus();
+                $("#foto").attr("src", "img/pregunta.png");
+
+                palabra = palabra.replace(/\./g, "rr").replace(/\,/g, "ll")
+                return;
             }
 
-            function showLetra(letra, index) {
-                if (index == palabra.length + 1) {
-                    $("#btnEnviar").show();
-                    $("#btnRepetir").show();
-                    $("#inputPalabra").show();
-                    $("#inputPalabra").focus();
-                    $("#foto").attr("src", "img/pregunta.png");
-                    
-                    palabra = palabra.replace(/\./g, "rr").replace(/\,/g, "ll")
-                    return;
+            if (letra == '.') {
+                letra = 'rr';
+            } else if (letra == ',') {
+                letra = 'll';
+            }
+            $("#foto").attr("src", "img/anonimas/" + letra + ".png");
+            setTimeout(function () {
+                showLetra(palabra[index], index + 1);
+            }, 500);
+        }
+
+        function clickEnviar() {
+            var palabraIngresada = $("#inputPalabra").val();
+            if (palabraIngresada == palabra) {
+                step++;
+                $("#divCorrecto").show();
+                if (step % 3 == 0) {
+                    minSizePalabra++;
                 }
 
-                if (letra == '.') {
-                    letra = 'rr';
-                } else if (letra == ',') {
-                    letra = 'll';
-                }
-                $("#foto").attr("src", "img/anonimas/" + letra + ".png");
                 setTimeout(function () {
-                    showLetra(palabra[index], index + 1);
-                }, 500);
-            }
+                    $("#divCorrecto").hide();
+                    clickSiguiente();
+                }, 1000);
 
-            function clickEnviar() {
-                var palabraIngresada = $("#inputPalabra").val();
-                if (palabraIngresada == palabra) {
-                    step++;
-                    $("#divCorrecto").show();
-                    if (step % 3 == 0) {
-                        minSizePalabra++;
-                    }
-                    
-                    setTimeout(function () {
-                        $("#divCorrecto").hide();
-                        clickSiguiente();
-                    }, 1000);
-                    
-                } else {
-                    $("#msgError").html(palabra);
-                    $("#msgError").show();
-                    terminar();
-                    setTimeout(function () {
-                        reiniciar();
-                    }, 3000);
-                }
-            }
-            
-            function terminar() {
-                if (step > mejorPuntaje) {
-                    mejorPuntaje = step;
-                }
-                
-                $("#mejorPuntaje").html("Mejor puntaje: " + mejorPuntaje);
-                localStorage.setItem("puntaje", mejorPuntaje);
+            } else {
+                $("#msgError").html(palabra);
+                $("#msgError").show();
+                terminar();
                 setTimeout(function () {
                     reiniciar();
                 }, 3000);
             }
+        }
 
-            function reiniciar() {
-                step = 0;
-                palabra = "";
-                minSizePalabra = 5;
-                clickSiguiente();
-                $("#msgError").hide();
+        function terminar() {
+            if (step > mejorPuntaje) {
+                mejorPuntaje = step;
             }
 
-            function getPalabra() {
-                var min = 0, max = maxSize + 1;
-                var index = Math.floor(Math.random() * (max - min)) + min;
-                return palabras[index].toLowerCase();
-            }
+            $("#mejorPuntaje").html("Mejor puntaje: " + mejorPuntaje);
+            localStorage.setItem("puntaje", mejorPuntaje);
+            setTimeout(function () {
+                reiniciar();
+            }, 3000);
+        }
 
-            function getTimeFormated(segundos) {
-                return new Date(segundos * 1000).toISOString().substr(11, 8);
-            }
+        function reiniciar() {
+            step = 0;
+            palabra = "";
+            minSizePalabra = 5;
+            clickSiguiente();
+            $("#msgError").hide();
+        }
 
-            const removeAccents = (str) => {
-                return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/rr/g, ".").replace(/ll/g, ",");
-            }
+        function getPalabra() {
+            var min = 0, max = maxSize + 1;
+            var index = Math.floor(Math.random() * (max - min)) + min;
+            return palabras[index].toLowerCase();
+        }
 
-        </script>
-    </body>
+        function getTimeFormated(segundos) {
+            return new Date(segundos * 1000).toISOString().substr(11, 8);
+        }
+
+        const removeAccents = (str) => {
+            return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/rr/g, ".").replace(/ll/g, ",");
+        }
+
+    </script>
+</body>
+
 </html>
